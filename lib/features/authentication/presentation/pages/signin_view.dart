@@ -68,7 +68,7 @@ class SigninView extends StatelessWidget {
             child: RichText(
               text: TextSpan(
                 text: "Forgot Password ?",
-                style: TextStyle(color: Colors.cyan.shade900),
+                style: const TextStyle(color: Colors.red),
                 recognizer: TapGestureRecognizer()..onTap = () {},
               ),
             ),
