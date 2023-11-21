@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "525595030577",
+    "project_id": "salar-coin-track",
+    "storage_bucket": "salar-coin-track.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:525595030577:android:2e6d57f02bf24862bb5110",
+        "android_client_info": {
+          "package_name": "com.example.coin_track"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAofdT8NAookKpSaDtROv3bXnxHB5hG_N4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
