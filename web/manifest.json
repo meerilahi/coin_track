@@ -1,11 +1,11 @@
 {
-    "name": "coin_track",
-    "short_name": "coin_track",
+    "name": "Coin Track",
+    "short_name": "Coin Track",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "Coin Track is a personal expense tracker where you can track you income and expenses",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

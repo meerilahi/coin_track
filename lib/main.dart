@@ -26,8 +26,7 @@ class CoinTrack extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (_) =>
-              AuthProvider(gt(), gt(), gt(), gt(), gt()),
+          create: (_) => AuthProvider(gt(), gt(), gt(), gt(), gt()),
         ),
         ChangeNotifierProxyProvider(
           create: (context) {
@@ -58,6 +57,7 @@ class CoinTrack extends StatelessWidget {
         )
       ],
       child: MaterialApp(
+        title: "Coin Track",
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.cyan),
