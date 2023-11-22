@@ -52,28 +52,7 @@ class _IncomeExpenseVariationSummaryWidgetState
                     ),
                   ),
                   const Spacer(),
-                  TextButton.icon(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.stop,
-                      color: Colors.red,
-                    ),
-                    label: const Text(
-                      expense,
-                      style: TextStyle(color: Colors.black),
-                    ),
-                  ),
-                  TextButton.icon(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.stop,
-                      color: Colors.green,
-                    ),
-                    label: const Text(
-                      income,
-                      style: TextStyle(color: Colors.black),
-                    ),
-                  ),
+                  
                   IconButton(
                     onPressed: () {
                       setState(() {

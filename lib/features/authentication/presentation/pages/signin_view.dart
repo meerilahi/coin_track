@@ -6,9 +6,7 @@ import 'package:provider/provider.dart';
 final _formKey = GlobalKey<FormState>();
 
 class SigninView extends StatelessWidget {
-  SigninView({super.key});
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  const SigninView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +25,7 @@ class SigninView extends StatelessWidget {
           ),
           const Spacer(flex: 3),
           TextFormField(
-            controller: _emailController,
+            initialValue: context.read<AuthProvider>().email,
             decoration: const InputDecoration(
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(25)),
@@ -35,6 +33,9 @@ class SigninView extends StatelessWidget {
               label: Text("Email"),
               prefixIcon: Icon(Icons.email),
             ),
+            onChanged: (newValue) {
+              context.read<AuthProvider>().email = newValue;
+            },
             validator: (email) {
               if (email != null &&
                   email.contains("@gmail.com") &&
@@ -46,7 +47,7 @@ class SigninView extends StatelessWidget {
           ),
           const Spacer(flex: 1),
           TextFormField(
-            controller: _passwordController,
+            initialValue: context.read<AuthProvider>().password,
             obscureText: true,
             decoration: const InputDecoration(
               border: OutlineInputBorder(
@@ -55,6 +56,9 @@ class SigninView extends StatelessWidget {
               label: Text("Password"),
               prefixIcon: Icon(Icons.lock),
             ),
+            onChanged: (newValue) {
+              context.read<AuthProvider>().password = newValue;
+            },
             validator: (password) {
               if (password != null && password.isNotEmpty) {
                 return null;
@@ -68,7 +72,7 @@ class SigninView extends StatelessWidget {
             child: RichText(
               text: TextSpan(
                 text: "Forgot Password ?",
-                style: const TextStyle(color: Colors.red),
+                style: const TextStyle(color: Colors.cyan),
                 recognizer: TapGestureRecognizer()..onTap = () {},
               ),
             ),
@@ -77,17 +81,20 @@ class SigninView extends StatelessWidget {
           ElevatedButton(
             onPressed: () async {
               if (_formKey.currentState!.validate()) {
+                final email = context.read<AuthProvider>().email;
+                final password = context.read<AuthProvider>().password;
                 try {
-                  await context.read<AuthProvider>().signInWithEmailAndPassword(
-                      _emailController.text, _passwordController.text);
+                  await context
+                      .read<AuthProvider>()
+                      .signInWithEmailAndPassword(email, password);
                 } catch (_) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text("Sign in failed")),
+                    const SnackBar(content: Text("Sign in failed")),
                   );
                 }
               }
             },
-            child: Text("Sign in"),
+            child: const Text("Sign in"),
           ),
           const Spacer(flex: 2),
           RichText(

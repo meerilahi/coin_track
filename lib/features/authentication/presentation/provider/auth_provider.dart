@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+
 import 'package:coin_track/features/authentication/domain/auth_use_cases.dart';
 import 'package:coin_track/features/authentication/domain/auth_user_entity.dart';
 
@@ -29,6 +30,27 @@ class AuthProvider extends ChangeNotifier {
   AuthPageState _pageState = AuthPageState.signinView;
   AuthUserEntity? _user;
 
+  final UserInputs _userInputs = UserInputs(
+    email: "",
+    password: "",
+    confirmPassword: "",
+  );
+  set email(newEmail) {
+    _userInputs.email = newEmail;
+  }
+
+  set password(newPasword) {
+    _userInputs.password = newPasword;
+  }
+
+  set confirmPassword(newConfirmPassword) {
+    _userInputs.confirmPassword = newConfirmPassword;
+  }
+
+  get email => _userInputs.email;
+  get password => _userInputs.password;
+  get confirmPassword => _userInputs.confirmPassword;
+
   AuthPageState get pageState => _pageState;
   AuthUserEntity? get user => _user;
 
@@ -42,6 +64,9 @@ class AuthProvider extends ChangeNotifier {
 
   void changeView(AuthPageState view) {
     _pageState = view;
+    email = "";
+    password = "";
+    confirmPassword = "";
     notifyListeners();
   }
 
@@ -62,4 +87,15 @@ class AuthProvider extends ChangeNotifier {
   Future<void> sendVerificationEmail() async {
     await _sendVerificationEmailUseCase();
   }
+}
+
+class UserInputs {
+  String email;
+  String password;
+  String confirmPassword;
+  UserInputs({
+    required this.email,
+    required this.password,
+    required this.confirmPassword,
+  });
 }

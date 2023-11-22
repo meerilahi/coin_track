@@ -6,11 +6,7 @@ import 'package:provider/provider.dart';
 final _formKey = GlobalKey<FormState>();
 
 class SignupView extends StatelessWidget {
-  SignupView({super.key});
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _passwordConfirmController =
-      TextEditingController();
+  const SignupView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +25,7 @@ class SignupView extends StatelessWidget {
           ),
           const Spacer(flex: 3),
           TextFormField(
-            controller: _emailController,
+            initialValue: context.read<AuthProvider>().email,
             decoration: const InputDecoration(
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(25)),
@@ -37,6 +33,9 @@ class SignupView extends StatelessWidget {
               label: Text("Email"),
               prefixIcon: Icon(Icons.email),
             ),
+            onChanged: (value) {
+              context.read<AuthProvider>().email = value;
+            },
             validator: (email) {
               if (email != null &&
                   email.contains("@gmail.com") &&
@@ -48,7 +47,7 @@ class SignupView extends StatelessWidget {
           ),
           const Spacer(flex: 1),
           TextFormField(
-            controller: _passwordController,
+            initialValue: context.read<AuthProvider>().password,
             obscureText: true,
             decoration: const InputDecoration(
               border: OutlineInputBorder(
@@ -57,6 +56,9 @@ class SignupView extends StatelessWidget {
               label: Text("Password"),
               prefixIcon: Icon(Icons.lock),
             ),
+            onChanged: (value) {
+              context.read<AuthProvider>().password = value;
+            },
             validator: (password) {
               if (password != null && password.length >= 6) {
                 return null;
@@ -66,7 +68,7 @@ class SignupView extends StatelessWidget {
           ),
           const Spacer(flex: 1),
           TextFormField(
-            controller: _passwordConfirmController,
+            initialValue: context.read<AuthProvider>().confirmPassword,
             obscureText: true,
             decoration: const InputDecoration(
               border: OutlineInputBorder(
@@ -75,8 +77,11 @@ class SignupView extends StatelessWidget {
               label: Text("Re-enter Password"),
               prefixIcon: Icon(Icons.lock),
             ),
+            onChanged: (value) {
+              context.read<AuthProvider>().confirmPassword = value;
+            },
             validator: (password) {
-              if (password == _passwordController.text) {
+              if (password == context.read<AuthProvider>().password) {
                 return null;
               }
               return "Password not matched";
@@ -87,8 +92,11 @@ class SignupView extends StatelessWidget {
             onPressed: () async {
               if (_formKey.currentState!.validate()) {
                 try {
-                  await context.read<AuthProvider>().signUpWithEmailAndPassword(
-                      _emailController.text, _passwordController.text);
+                  final email = context.read<AuthProvider>().email;
+                  final password = context.read<AuthProvider>().password;
+                  await context
+                      .read<AuthProvider>()
+                      .signUpWithEmailAndPassword(email, password);
                 } catch (_) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text("Sign up failed")),
@@ -96,7 +104,7 @@ class SignupView extends StatelessWidget {
                 }
               }
             },
-            child: Text("Sign up"),
+            child: const Text("Sign up"),
           ),
           const Spacer(flex: 2),
           RichText(
